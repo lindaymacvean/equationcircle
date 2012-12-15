@@ -8,7 +8,8 @@ canvas.height = document.body.clientHeight;
 
 //clear
 function clearStuff(){
-
+	ctx.fillStyle = 'white';
+	ctx.fillRect(0,0,canvas.width,canvas.height);
 }
 
 //draw circle
@@ -27,7 +28,7 @@ ctx.fill();
 ctx.lineWidth = 5;
 ctx.strokeStyle = '#003300';
 ctx.stroke();
-
+centerX = centerX + 10;
 clearStuff();
 }
 
@@ -47,11 +48,9 @@ ctx.fill();
 ctx.lineWidth = 5;
 ctx.strokeStyle = '#003300';
 ctx.stroke();
-
-clearStuff();
 }
 
-paintCircle();
-paintHole();
+setInterval(paintCircle,10);
+setInterval(paintHole,10);
 
 });
