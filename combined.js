@@ -2,11 +2,11 @@ $(document).ready(function(){
 
 var canvas = document.getElementById("canvas1");
 var ctx = canvas.getContext('2d');
-var circleX = 0;
-var circleY = canvas.height / 2;
 
 canvas.width = document.body.clientWidth;
 canvas.height = document.body.clientHeight;
+var circleX = 0;
+var circleY = canvas.height / 2;
 
 //clear
 function clearStuff(){
@@ -30,7 +30,7 @@ ctx.fill();
 ctx.lineWidth = 5;
 ctx.strokeStyle = '#003300';
 ctx.stroke();
-circleX += 5;
+circleX += 3;
 console.log("circle painted");
 }
 
@@ -57,6 +57,7 @@ function paint()
 {
 console.log("executing painting functions...");
 paintCircle();
+paintHole();
 }
 
 setInterval(paint,10);
