@@ -5,8 +5,8 @@ var ctx = canvas.getContext('2d');
 var circleX = 0;
 var circleY = canvas.height / 2;
 
-canvas.width = document.body.clientWidth - 25;
-canvas.height = document.body.clientHeight - 16;
+canvas.width = document.body.clientWidth;
+canvas.height = document.body.clientHeight;
 
 //clear
 function clearStuff(){
