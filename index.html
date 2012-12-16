@@ -1,30 +1,29 @@
 <html>
-
-
-
 <head>
-
-
-
-<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-<script src="combined.js"></script>
-
-
+    <script src="assets/jquery-1.7.1.min.js"></script>
+    <script src="combined.js"></script>
+    <script type="text/javascript" src="assets/Tangle.js"></script>
+    
+    <link rel="stylesheet" href="assets/TangleKit/TangleKit.css" type="text/css">
+    <script type="text/javascript" src="assets/TangleKit/mootools.js"></script>
+    <script type="text/javascript" src="assets/TangleKit/sprintf.js"></script>
+    <script type="text/javascript" src="assets/TangleKit/BVTouchable.js"></script>
+    <script type="text/javascript" src="assets/TangleKit/TangleKit.js"></script>
 </head>
-
-
-
 <body>
-
-
-
-<canvas id="canvas1"></canvas>
-
-
-
+    <div align=center>
+        <canvas id="canvas1" style="border:2px solid black"></canvas>
+    </div>
+    
+    <div align=center id="controls">
+        (x-a)<sup>2</sup>+(y-b)<sup>2</sup> = r<sup>2</sup>
+        <br/>
+        x= <span class="TKAdjustableNumber" data-var="x" data-min="-100" data-max="100" ></span>&nbsp
+        y= <span class="TKAdjustableNumber" data-var="y" data-min="-100" data-max="100" ></span>&nbsp
+        b= <span id="b" class="TKAdjustableNumber" data-var="b" data-min="-219" data-max="219" ></span>&nbsp
+        a= <span id="a" class="TKAdjustableNumber" data-var="a" data-min="-571" data-max="571" ></span>&nbsp
+        r<sup>2</sup>= <span data-var="r"></span>
+        </p>
+    </div>
 </body>
-
-
-
-
 </html>
