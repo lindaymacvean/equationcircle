@@ -32,7 +32,7 @@ var a1 = document.getElementById("a");
 var b1 = document.getElementById("b");
 
 canvas.width = window.innerWidth - 80;
-canvas.height = window.innerHeight - 60;
+canvas.height = window.innerHeight - 100;
 var centerX = canvas.width / 2;
 var centerY = canvas.height / 2;
 
