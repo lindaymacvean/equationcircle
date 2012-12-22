@@ -1,5 +1,7 @@
-$(document).ready(function(){
 
+
+
+$(document).ready(function(){
 var a;
 var b;
 
@@ -17,7 +19,6 @@ function setUpTangle() {
                     this.r = 0;
                 },
                 update: function () {
-                    this.r = ((this.x-this.a)*(this.x-this.a)) + ((this.y-this.b) * (this.y-this.b))*((this.x-this.a)*(this.x-this.a)) + ((this.y-this.b) * (this.y-this.b));
                     a = this.a;
                     b = this.b;
                 }
@@ -31,8 +32,8 @@ var ctx = canvas.getContext('2d');
 var a1 = document.getElementById("a");
 var b1 = document.getElementById("b");
 
-canvas.width = window.innerWidth - 80;
-canvas.height = window.innerHeight - 100;
+canvas.width = window.innerWidth - 1;
+canvas.height = window.innerHeight - 150;
 var centerX = canvas.width / 2;
 var centerY = canvas.height / 2;
 
@@ -47,21 +48,26 @@ function clearStuff(){
 	ctx.fillRect(0,0,canvas.width,canvas.height);
 }
 
+var supportsOrientationChange = "onorientationchange" in window,
+       orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
+window.addEventListener(orientationEvent, function(){
+var canvas = document.getElementById("canvas1");
+
+circleX = canvas.width / 2;
+circleY = canvas.height / 2;
+
+//alert("Screen orientation in degrees: "+ window.orientation + " Screen width: " + screen.width);
+});
+
 //draw circle
 function paintCircle() {
 var startAngle = 0;
 var endAngle = 360;
 var clockwise = true;
 
-a1.setAttribute("data-max",canvas.width - radius);
-a1.setAttribute("data-min", 0 + radius);
-
-b1.setAttribute("data-min", 0 + radius);
-b1.setAttribute("data-max", canvas.height - radius);
-
-clearStuff();
+//clearStuff();
 ctx.beginPath();
-ctx.arc(circleX, circleY, radius, 0, 2 * Math.PI, false);
+ctx.arc(circleX, circleY, radius, 0, 2* Math.PI, false);
 ctx.fillStyle = 'green';
 ctx.fill();
 ctx.lineWidth = 5;
@@ -81,12 +87,13 @@ var startAngle = 0;
 var endAngle = 360;
 var clockwise = true;
 
+clearStuff();
 ctx.beginPath();
-ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-ctx.fillStyle = 'green';
+ctx.arc(centerX, centerY, radius, 0, 2*Math.PI, true);
+ctx.fillStyle = 'black';
 ctx.fill();
 ctx.lineWidth = 5;
-ctx.strokeStyle = '#003300';
+ctx.strokeStyle = 'black';
 ctx.stroke();
 //console.log("hole painted");
 }
@@ -94,8 +101,13 @@ ctx.stroke();
 function paint()
 {
 //console.log("executing painting functions...");
+if (canvas.width != window.innerWidth - 1 && canvas.height != window.innerHeight- 150)
+{
+canvas.width = window.innerWidth - 1;
+canvas.height = window.innerHeight- 150;
+}
+paintHole();
 paintCircle();
-//paintHole();
 }
 
 setInterval(paint,10);
