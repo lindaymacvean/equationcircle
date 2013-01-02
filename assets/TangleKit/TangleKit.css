@@ -21,7 +21,7 @@
 
 .TKToggle {
 	color: #46f;
-	border-bottom: 1px dashed #46f;
+	/*border-bottom: 1px dashed #46f;*/
 	cursor: pointer;
 }
 
@@ -31,7 +31,7 @@
 .TKAdjustableNumber {
 	position:relative;
 	color: #46f;
-	border-bottom: 1px dashed #46f;
+	/*border-bottom: 1px dashed #46f;*/
 }
 
 .TKAdjustableNumberHover {
@@ -39,7 +39,7 @@
 
 .TKAdjustableNumberDown {
 	color: #00c;
-	border-bottom: 1px dashed #00c;
+	/*border-bottom: 1px dashed #00c;*/
 }
 
 .TKAdjustableNumberHelp {
