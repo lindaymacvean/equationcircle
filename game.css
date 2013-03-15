@@ -1,0 +1,38 @@
+body
+{
+margin: 0; padding: 0;
+overflow:hidden;
+}
+
+#canvas
+{
+	z-index:-1;
+	float:left;
+}
+
+img
+{
+	position:relative;
+	top:0px;
+	z-index:-1;
+}
+
+#controls
+{
+	text-align:center;
+}
+
+#score
+{
+	text-align:center;
+}
+
+.selected
+{
+	background-color:lightblue;
+}
+
+#controls span
+{
+text-decoration:underline;
+}
