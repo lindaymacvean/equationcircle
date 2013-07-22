@@ -1,247 +1,45 @@
 <html>
 <head>
-    <!--<script src="assets/jquery-1.7.1.min.js"></script>-->
-    <script type="text/javascript" src="assets/Tangle.js"></script>
+	<link rel="stylesheet" href="game.css" type="text/css">
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
-	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-	<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="game.css" type="text/css">
 	
+	<script src="jquery.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+	<script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.5.4.min.js"></script>
+	<script src="assets/functions.js"></script>
+	<script src="assets/drawing.js"></script>
+	<script src="assets/levels.js"></script>
+	<script src="assets/score.js"></script>
+	
+	<audio loop id="backgroundMusic">
+	<source src="backgroundmusic.mp3" type="audio/mpeg" />
+	</audio>
 	
 </head>
-<body>
+<body onload="document.getElementById('backgroundMusic').play();">
 
 <div id="content" style="display:block;">
 
 <div id="score" width="32" style="float:right;display:inline;">
 
-<img id="1" src="pointOff.png"><br>
-<img id="2" src="pointOff.png"><br>
-<img id="3" src="pointOff.png"><br>
-<img id="4" src="pointOff.png"><br>
-<img id="5" src="pointOff.png"><br>
-<img id="6" src="pointOff.png"><br>
-<img id="7" src="pointOff.png"><br>
-<img id="8" src="pointOff.png"><br>
-<img id="9" src="pointOff.png"><br>
-<img id="10" src="pointOff.png">
-
 </div>
 <p style="display:inline;">
 <!--<a type="value" id="amount" style="border: 0; color: #f6931f; font-weight: bold;display:inline;margin-bottom:8px;;float:left;" ></a>-->
-<div id="slider-vertical" style="height:541px;margin-left:5px;display:inline;margin-top:13px;float:left;"></div>
+<div id="slider-vertical"></div>
 </p>
-<canvas id="canvas" style="border:2px solid black;display:inline;float:right;">
-<font size="9" color="red">
-<center>
-This game does not work with your browser. Please Download Chrome for the game to work.
-</center>
-</font>
-</canvas>
+<svg id="ingamesvg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100" height="100" style="border:2px solid black;display:inline;">
+  <circle id="l1hole" r="40" stroke="black" stroke-width="5" fill="black"/>
+  <circle id="l1circle" r="40" stroke="#003300" stroke-width="5" fill="green"/>
+</svg>
 </div>
 <div align=center id="controls">
+<span style="position: absolute; bottom: 0; left: 0;text-decoration:none;font-size:15px;"><a style="color:black" href="http://incompetech.com/">Cut and Run Kevin MacLeod (incompetech.com)</a></span>
 <font size="6px">
-(x-<span id="a" onclick="javascript:select('a',0)" class="selected">a</span>)<sup>2</sup>+(y-<span id="b" onclick="javascript:select('b',1)">b</span>)<sup>2</sup> = <span id="r" onclick="javascript:select('r',0)">r</span><sup>2</sup><br>
-<button>Restart</button>
+<span id="equation">(x-<span id="a" onclick="javascript:select('a',0)" class="selected">a</span>)<sup>2</sup>+(y-<span id="b" onclick="javascript:select('b',1)">b</span>)<sup>2</sup> = <span id="r" onclick="javascript:select('r',0)">r</span><sup>2</sup><br></span>
+<button style="height:30px">Restart</button>
 </font>
 </div>
 
-<script>
-
-function restart()
-{
-window.location = window.location;
-}
-
-var selected = "a";
-function select(name)
-{
-if(name === "a")
-{
-$( "#slider-vertical" ).slider({
-      value: a
-    });
-}
-else if(name === "b")
-{
-$( "#slider-vertical" ).slider({
-      value: b
-    });
-}
-else if(name === "r")
-{
-$( "#slider-vertical" ).slider({
-      value: circleRadius
-    });
-}
-
-
-$("#"+selected).attr("class", "");
-selected = name;
-$("#"+name).attr("class", "selected");
-}
-
-var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext('2d');
-//canvas.width = document.width - 4 - 59;
-canvas.width = document.width - (15 + 37);
-canvas.height = document.height - 80;
-var centerX = window.innerWidth/2;
-var centerY = window.innerHeight/2;
-
-var a = 0;
-var b = 0;
-var x = -centerX;
-var y = -centerY;
-var score = [1,0,1,0,1,0,0,0,0,0];
-var circleX = centerX;
-var circleY = centerY;
-var holeRadius = Math.floor(Math.random()*149);
-var holeX = Math.floor(Math.random()*(canvas.width-1)-(holeRadius*3));
-var holeY = Math.floor(Math.random()*(canvas.height-1)-(holeRadius*3));
-var circleRadius = 70;
-var scoreElem = [];
-//a-b-x-y
-
-
-  $(function() {
-    $( "#slider-vertical" ).slider({
-      orientation: "vertical",
-      range: "min",
-      min: -999,
-      max: 999,
-	  animate: "slow",
-      value: a,
-    });
-  });
-
-console.log("Hole Radius: "+holeRadius);
-console.log("Hole X: "+holeX);
-console.log("Hole Y: "+holeY);
-console.log("Canvas Width: "+canvas.width);
-console.log("Canvas Heigth: "+canvas.height);
-
-
-
-
-
-
-
-for(var i=10;i>0;i--)
-{
-	scoreElem[i] = document.getElementById(i+"");
-	if(score[i] === 1)
-	{
-	scoreElem[i].src="pointOn.png";
-	}
-}
-console.log(scoreElem);
-
-
-
-
-
-
-//clear
-function clear(){
-    //console.log("clearing...");
-	ctx.fillStyle = "rgb(255,255,255)";
-	ctx.fillRect(0,0,canvas.width,canvas.height);
-}
-
-
-
-
-
-
-
-
-
-
-/*var supportsOrientationChange = "onorientationchange" in window,
-       orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
-window.addEventListener(orientationEvent, function(){
-//alert("Screen orientation in degrees: "+ window.orientation + " Screen width: " + screen.width);
-});*/
-
-
-
-
-
-
-
-
-//draw circle
-function paintCircle() {
-var startAngle = 0;
-var endAngle = 360;
-var clockwise = true;
-
-ctx.beginPath();
-ctx.arc(circleX, circleY, circleRadius, 0, 2* Math.PI, false);
-ctx.fillStyle = 'green';
-ctx.fill();
-ctx.lineWidth = 5;
-ctx.strokeStyle = '#003300';
-ctx.stroke();
-circleX = -x + -a;
-circleY = -y + -b;
-if (circleX > holeX - 4 && circleX < holeX + 4 && circleY > holeY - 4 && circleY < holeY + 4 && circleRadius > holeRadius - 4 && circleRadius < holeRadius + 4 )
-{
-	score++;
-	restart(score, 1);
-}
-//console.log("circle painted");
-}
-
-
-
-
-
-
-
-//draw hole
-function paintHole() {
-var startAngle = 0;
-var endAngle = 360;
-var clockwise = true;
-
-ctx.beginPath();
-ctx.arc(holeX, holeY, holeRadius, 0, 2*Math.PI, true);
-ctx.fillStyle = 'black';
-ctx.fill();
-ctx.lineWidth = 5;
-ctx.strokeStyle = 'black';
-ctx.stroke();
-//console.log("hole painted");
-}
-
-
-
-
-function paint()
-{
-//console.log("executing painting functions...");
-
-if(selected === "a")
-{
-a = $( "#slider-vertical" ).slider( "value" );
-}
-else if(selected === "b")
-{
-b = $("#slider-vertical").slider("value");
-}
-else if(selected === "r")
-{
-circleRadius = $("#slider-vertical").slider("value");
-}
-
-clear();
-paintHole();
-paintCircle();
-}
-
-setInterval(paint,10);
-  </script>
+<script src="assets/main.js"></script>
 </body>
 </html>

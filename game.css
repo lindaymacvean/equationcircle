@@ -1,13 +1,18 @@
 body
 {
 margin: 0; padding: 0;
-overflow:hidden;
+/*overflow:hidden;*/
+font-family:Comic Sans MS
 }
 
-#canvas
+#slider-vertical
 {
-	z-index:-1;
-	float:left;
+height:541px;
+margin-right:5px;
+margin-left:5px;
+display:inline;
+margin-top:13px;
+float:left;
 }
 
 img
@@ -30,9 +35,4 @@ img
 .selected
 {
 	background-color:lightblue;
-}
-
-#controls span
-{
-text-decoration:underline;
 }
